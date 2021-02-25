@@ -1,0 +1,17 @@
+{
+  "name": "solana-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Anderson Chen <twan0817@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.13.1",
+    "@babel/node": "^7.13.0",
+    "@solana/web3.js": "^0.92.2",
+    "bip39": "^3.0.3",
+    "buffer-layout": "^1.2.0",
+    "ed25519-hd-key": "^1.2.0",
+    "ethereumjs-wallet": "^1.0.1",
+    "tweetnacl": "^1.0.3"
+  }
+}
