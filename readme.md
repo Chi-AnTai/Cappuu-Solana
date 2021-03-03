@@ -6,3 +6,13 @@
 ```
 yarn
 ```
+
+## Transactions
+
+### Create token account and transfer token
+
+https://explorer.solana.com/tx/52im6PmFxK1QWYMejAbwvfsXZ75JfbBEXxeNm3vVxn879cSE82k6wYmDhx66PbHNqs5uYRQgkXdTa7xvX3YjjVqn?cluster=testnet
+
+### Transfer token
+
+https://explorer.solana.com/tx/t24Yyx4WejRJnQ4DK5X2hzfpRV4ijuVTgP55sRJipjZ8qeJPBX4XqKcogbBRGqDg1MoxA3UtyFr6XsSaYuuMCs8?cluster=testnet
