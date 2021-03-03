@@ -14,12 +14,12 @@ async function createAndTransferToAccount({
 }) {
     const newAccount = new Account();
     let transaction = new Transaction();
-    transaction.add(
-        assertOwner({
-            account: destinationPublicKey,
-            owner: SystemProgram.programId,
-        }),
-    );
+    // transaction.add(
+    //     assertOwner({
+    //         account: destinationPublicKey,
+    //         owner: SystemProgram.programId,
+    //     }),
+    // );
     transaction.add(
         SystemProgram.createAccount({
             fromPubkey: owner.publicKey,
