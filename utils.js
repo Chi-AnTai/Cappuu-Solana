@@ -39,10 +39,8 @@ async function signAndSendTransaction(
     transaction.partialSign(...signers);
   }
 
-  // TODO: Fix the missing signTransaction
   transaction.partialSign(wallet);
   const rawTransaction = transaction.serialize();
-  console.log('before send raw transaction')
   return await connection.sendRawTransaction(rawTransaction, {
     skipPreflight,
     preflightCommitment: 'single',
