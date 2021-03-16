@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Anderson Chen <twan0817@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "transfer-token": "yarn node token-transfer.js"
+  },
   "dependencies": {
     "@babel/core": "^7.13.1",
     "@babel/node": "^7.13.0",

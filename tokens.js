@@ -1,6 +1,31 @@
 const { Account, Transaction, SystemProgram } = require('@solana/web3.js');
-const { assertOwner, initializeAccount, createTransferBetweenSplTokenAccountsInstruction, TOKEN_PROGRAM_ID } = require('./instructions');
+const { 
+    assertOwner,
+    initializeAccount,
+    createTransferBetweenSplTokenAccountsInstruction,
+    TOKEN_PROGRAM_ID,
+} = require('./instructions');
 const { ACCOUNT_LAYOUT, signAndSendTransaction } = require('./utils');
+
+// Ref: https://github.com/project-serum/spl-token-wallet/blob/5ca3e3d90366be74383ec04aaa4cfbdb3ef77e22/src/utils/tokens/index.js#L406
+async function transferBetweenSplTokenAccounts({
+    connection,
+    owner,
+    sourcePublicKey,
+    destinationPublicKey,
+    amount,
+    memo,
+}) {
+    const transaction = createTransferBetweenSplTokenAccountsInstruction({
+        ownerPublicKey: owner.publicKey,
+        sourcePublicKey,
+        destinationPublicKey,
+        amount,
+        memo,
+    });
+    let signers = [];
+    return await signAndSendTransaction(connection, transaction, owner, signers);
+};
 
 // Ref：https://github.com/project-serum/spl-token-wallet/blob/5ca3e3d90366be74383ec04aaa4cfbdb3ef77e22/src/utils/tokens/index.js#L425
 async function createAndTransferToAccount({
@@ -14,12 +39,12 @@ async function createAndTransferToAccount({
 }) {
     const newAccount = new Account();
     let transaction = new Transaction();
-    transaction.add(
-        assertOwner({
-            account: destinationPublicKey,
-            owner: SystemProgram.programId,
-        }),
-    );
+    // transaction.add(
+    //     assertOwner({
+    //         account: destinationPublicKey,
+    //         owner: SystemProgram.programId,
+    //     }),
+    // );
     transaction.add(
         SystemProgram.createAccount({
             fromPubkey: owner.publicKey,
@@ -53,5 +78,6 @@ async function createAndTransferToAccount({
 };
 
 module.exports = {
+    transferBetweenSplTokenAccounts,
     createAndTransferToAccount,
 };

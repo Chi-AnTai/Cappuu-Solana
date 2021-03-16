@@ -5,7 +5,7 @@ const bip39 = require('bip39');
 const { derivePath } = require('ed25519-hd-key')
 const nacl = require('tweetnacl');
 const { parseTokenAccountData } = require('./utils');
-const { createAndTransferToAccount } = require('./tokens');
+const { createAndTransferToAccount, transferBetweenSplTokenAccounts } = require('./tokens');
 
 // Get account
 const phrase = "stereo mango fantasy bar vague clerk maze diet imitate fancy snap slab marble magic sugar feature student sunset pioneer sugar carpet path path rich";
@@ -46,15 +46,28 @@ provider.getAccountInfo(tokenAccountPublicKey).then(accountInfo => {
 // Send token TEST4n
 // Ref：https://github.com/project-serum/spl-token-wallet/blob/5ca3e3d90366be74383ec04aaa4cfbdb3ef77e22/src/utils/tokens/index.js#L296
 // If the destination account doesn't have a token account, I need to create a token account for it, and then I can tranfer the token
-const destinationPublicKey = new solanaWeb3.PublicKey('6Ju43Kks6Z4aQLmCjGafov8cJB4qipVFw7Tmx4htpvAr');
-const tokenPublicKey = new solanaWeb3.PublicKey('4n4Cv5652oHow4hbekUuB6MXwShtbJViQiezQqZJPiK3'); // The token address
 const amount = 1 * (10 ** decimals);
-createAndTransferToAccount({
+
+// The destination account is not a token account
+// const destinationPublicKey = new solanaWeb3.PublicKey('6Ju43Kks6Z4aQLmCjGafov8cJB4qipVFw7Tmx4htpvAr');
+// const tokenPublicKey = new solanaWeb3.PublicKey('4n4Cv5652oHow4hbekUuB6MXwShtbJViQiezQqZJPiK3'); // The token address
+// createAndTransferToAccount({
+//     connection: provider,
+//     owner: account,
+//     destinationPublicKey,
+//     sourcePublicKey: tokenAccountPublicKey,
+//     amount,
+//     memo: null,
+//     mint: tokenPublicKey,
+// });
+
+// The destination account is a token account
+const destinationPublicKey = new solanaWeb3.PublicKey('HmH7NmGsqTCmt2MjDuZyj7UHUns5b9QNFwivNvNa8Ysy');
+transferBetweenSplTokenAccounts({
     connection: provider,
     owner: account,
     destinationPublicKey,
     sourcePublicKey: tokenAccountPublicKey,
     amount,
     memo: null,
-    mint: tokenPublicKey,
 });
